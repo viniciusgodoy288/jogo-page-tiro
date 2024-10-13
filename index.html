@@ -1,0 +1,112 @@
+<html><head><base href="https://websim.ai/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DEADSHOT - Jogue Deadshot.io em Tela Cheia</title>
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-image: url('https://cdn.jogos360.com.br/de/ad/deadshot-io-d.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  h1 {
+    font-size: 4rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    margin-bottom: 2rem;
+  }
+  .btn {
+    background-color: #ff4136;
+    color: white;
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.5rem;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+  .btn:hover {
+    background-color: #ff725c;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+  }
+  #gameFrame {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    border: none;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="overlay">
+      <h1>DEADSHOT</h1>
+      <button class="btn" onclick="playGame()">JOGAR EM TELA CHEIA</button>
+    </div>
+  </div>
+  
+  <iframe id="gameFrame" src="https://deadshot.io/" allowfullscreen></iframe>
+
+  <script>
+    function playGame() {
+      const gameFrame = document.getElementById('gameFrame');
+      gameFrame.style.display = 'block';
+      
+      if (gameFrame.requestFullscreen) {
+        gameFrame.requestFullscreen();
+      } else if (gameFrame.mozRequestFullScreen) { // Firefox
+        gameFrame.mozRequestFullScreen();
+      } else if (gameFrame.webkitRequestFullscreen) { // Chrome, Safari and Opera
+        gameFrame.webkitRequestFullscreen();
+      } else if (gameFrame.msRequestFullscreen) { // IE/Edge
+        gameFrame.msRequestFullscreen();
+      }
+    }
+
+    // Listen for fullscreen change
+    document.addEventListener('fullscreenchange', exitHandler);
+    document.addEventListener('webkitfullscreenchange', exitHandler);
+    document.addEventListener('mozfullscreenchange', exitHandler);
+    document.addEventListener('MSFullscreenChange', exitHandler);
+
+    function exitHandler() {
+      if (!document.fullscreenElement && !document.webkitIsFullScreen && !document.mozFullScreen && !document.msFullscreenElement) {
+        document.getElementById('gameFrame').style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>
